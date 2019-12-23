@@ -1,1 +1,4 @@
-print("Hello python")
+def Hello():
+	print("Hello python")
+
+Hello()

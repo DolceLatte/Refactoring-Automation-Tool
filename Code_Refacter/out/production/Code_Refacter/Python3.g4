@@ -124,10 +124,14 @@ tokens { INDENT, DEDENT }
     return super.getCharPositionInLine() == 0 && super.getLine() == 1;
   }
 }
-
 /*
  * parser rules
  */
+program : single_input
+        | file_input
+        | eval_input
+        | decorator
+        ;
 
 single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE;
 file_input: (NEWLINE | stmt)* EOF;

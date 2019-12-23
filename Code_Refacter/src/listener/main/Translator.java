@@ -31,8 +31,8 @@ public class Translator {
         Python3Lexer lexer = new Python3Lexer(codeCharStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Python3Parser parser = new Python3Parser(tokens);
-        System.out.println(parser);
         ParseTree tree = parser.program();
+        System.out.println(tree.toStringTree());
 
         ParseTreeWalker walker = new ParseTreeWalker();
         switch (getOption(args)) {
