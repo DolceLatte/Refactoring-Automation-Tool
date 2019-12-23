@@ -8,39 +8,39 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+
+
 public class Translator {
-	enum OPTIONS {
-		PYTHON3CODEGEN, ERROR
-	}
-	private static OPTIONS getOption(String[] args){
-		if (args.length < 1)
-			return OPTIONS.PYTHON3CODEGEN;
+    enum OPTIONS {
+        PYTHON3CODEGEN, ERROR
+    }
 
-		if (args[0].startsWith("-b") 
-				|| args[0].startsWith("-B"))
-			return OPTIONS.PYTHON3CODEGEN;
+    private static OPTIONS getOption(String[] args) {
+        if (args.length < 1)
+            return OPTIONS.PYTHON3CODEGEN;
 
-		return OPTIONS.ERROR;
-	}
-	
-	public static void main(String[] args) throws Exception
-	{
-		CharStream codeCharStream = CharStreams.fromFileName("test.py");
-		Python3Lexer lexer = new Python3Lexer(codeCharStream);
-		CommonTokenStream tokens = new CommonTokenStream( lexer );
-		Python3Parser parser = new Python3Parser( tokens );
-		ParseTree tree = parser.atom();
+        if (args[0].startsWith("-b")
+                || args[0].startsWith("-B"))
+            return OPTIONS.PYTHON3CODEGEN;
 
-		ParseTreeWalker walker = new ParseTreeWalker();
-		switch (getOption(args)) {
-			case PYTHON3CODEGEN:
-				walker.walk(new Python3codeGenListener(), tree );
-				break;
-//			case UCODEGEN:
-//				walker.walk(new UCodeGenListener(), tree );
-//				break;
-			default:
-				break;
-		}
-	}
+        return OPTIONS.ERROR;
+    }
+
+    public static void main(String[] args) throws Exception {
+        CharStream codeCharStream = CharStreams.fromFileName("test.py");
+        Python3Lexer lexer = new Python3Lexer(codeCharStream);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        Python3Parser parser = new Python3Parser(tokens);
+        System.out.println(parser);
+        ParseTree tree = parser.program();
+
+        ParseTreeWalker walker = new ParseTreeWalker();
+        switch (getOption(args)) {
+            case PYTHON3CODEGEN:
+                walker.walk(new Python3codeGenListener(), tree);
+                break;
+            default:
+                break;
+        }
+    }
 }

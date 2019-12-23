@@ -7,6 +7,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface Python3Listener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link Python3Parser#program}.
+	 * @param ctx the parse tree
+	 */
+	void enterProgram(Python3Parser.ProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Python3Parser#program}.
+	 * @param ctx the parse tree
+	 */
+	void exitProgram(Python3Parser.ProgramContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Python3Parser#single_input}.
 	 * @param ctx the parse tree
 	 */
