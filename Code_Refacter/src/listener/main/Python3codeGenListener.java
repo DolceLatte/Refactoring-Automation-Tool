@@ -1,19 +1,19 @@
 package listener.main;
 
-import generated.Python3BaseListener;
-import generated.Python3Parser;
+import gen.Python3BaseListener;
+import gen.Python3Parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     @Override
-    public void enterProgram(Python3Parser.ProgramContext ctx) {
-        super.enterProgram(ctx);
+    public void enterSingle_input(Python3Parser.Single_inputContext ctx) {
+        super.enterSingle_input(ctx);
     }
 
     @Override
-    public void exitProgram(Python3Parser.ProgramContext ctx) {
-        super.exitProgram(ctx);
+    public void exitSingle_input(Python3Parser.Single_inputContext ctx) {
+        super.exitSingle_input(ctx);
     }
 
     @Override

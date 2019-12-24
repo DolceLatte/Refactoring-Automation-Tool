@@ -1,13 +1,12 @@
 package listener.main;
 
-import generated.Python3Lexer;
-import generated.Python3Parser;
+import gen.Python3Lexer;
+import gen.Python3Parser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
 
 
 public class Translator {
@@ -31,16 +30,16 @@ public class Translator {
         Python3Lexer lexer = new Python3Lexer(codeCharStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Python3Parser parser = new Python3Parser(tokens);
-        ParseTree tree = parser.program();
-        System.out.println(tree.toStringTree());
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-        switch (getOption(args)) {
-            case PYTHON3CODEGEN:
-                walker.walk(new Python3codeGenListener(), tree);
-                break;
-            default:
-                break;
-        }
+        AstPrinter astPrinter = new AstPrinter();
+        astPrinter.print(parser.decl());
+//        ParseTree tree = parser.decl();
+//        ParseTreeWalker walker = new ParseTreeWalker();
+//        switch (getOption(args)) {
+//            case PYTHON3CODEGEN:
+//                walker.walk(new Python3codeGenListener(), tree);
+//                break;
+//            default:
+//                break;
+//        }
     }
 }

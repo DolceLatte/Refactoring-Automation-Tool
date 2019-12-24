@@ -127,19 +127,22 @@ tokens { INDENT, DEDENT }
 /*
  * parser rules
  */
-program : single_input
-        | file_input
-        | eval_input
-        | decorator
-        ;
+
+decl : (input | deco | func_decl);
+
+input : single_input | file_input | eval_input ;
 
 single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE;
 file_input: (NEWLINE | stmt)* EOF;
 eval_input: testlist NEWLINE* EOF;
 
+deco : decorator | decorators | decorated ;
+
 decorator: '@' dotted_name ( '(' (arglist)? ')' )? NEWLINE;
 decorators: decorator+;
 decorated: decorators (classdef | funcdef | async_funcdef);
+
+func_decl : async_stmt | funcdef ;
 
 async_funcdef: ASYNC funcdef;
 funcdef: 'def' NAME parameters ('->' test)? ':' suite;
