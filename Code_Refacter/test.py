@@ -1,22 +1,35 @@
-# -*- coding: utf-8 -*-
-def decorator_function(original_function):
-	def wrapper_function():
-		print('{} 함수가 호출되기전 입니다.'.format(original_function.__name__))
-		return original_function()
-	return wrapper_function
+temp = not 1
 
+array_a = [1, 2, 3, 4]
+array_b = [2, 3, 4, 5]
 
-@decorator_function  #1
-def display_1():
-	print('display_1 함수가 실행됐습니다.')
+sum_a = 0
 
+for i in array_a:
+    sum_a += i
 
-@decorator_function  #2
-def display_2():
-	print('display_2 함수가 실행됐습니다.')
+def Test():
+    return "Test"
 
-# display_1 = decorator_function(display_1)  #3
-# display_2 = decorator_function(display_2)  #4
+average_a = sum_a / 4
 
-display_1()
-display_2()
+sum_b = 0
+
+class Calculator:
+    def __init__(self):
+        self.result = 0
+
+    def add(self, num):
+        self.result += num
+        return self.result
+
+cal1 = Calculator()
+
+for i in array_b:
+    sum_b += i
+
+average_b = sum_b / 4
+
+print(cal1.add(3))
+print(average_a)
+print(average_b)

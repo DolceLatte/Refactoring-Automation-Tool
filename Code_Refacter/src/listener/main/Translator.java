@@ -30,16 +30,16 @@ public class Translator {
         Python3Lexer lexer = new Python3Lexer(codeCharStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Python3Parser parser = new Python3Parser(tokens);
-        AstPrinter astPrinter = new AstPrinter();
-        astPrinter.print(parser.decl());
-//        ParseTree tree = parser.decl();
-//        ParseTreeWalker walker = new ParseTreeWalker();
-//        switch (getOption(args)) {
-//            case PYTHON3CODEGEN:
-//                walker.walk(new Python3codeGenListener(), tree);
-//                break;
-//            default:
-//                break;
-//        }
+//        AstPrinter astPrinter = new AstPrinter();
+//        astPrinter.print(parser.decl());
+        ParseTreeWalker walker = new ParseTreeWalker();
+        ParseTree tree = parser.decl();
+        switch (getOption(args)) {
+            case PYTHON3CODEGEN:
+                walker.walk(new Python3codeGenListener(), tree);
+                break;
+            default:
+                break;
+        }
     }
 }
