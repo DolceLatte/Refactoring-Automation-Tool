@@ -12,13 +12,12 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     public void enterFile_input(Python3Parser.File_inputContext ctx) {
         for (int i = 0; i < ctx.stmt().size(); i++) {
             if (import_flag && (ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
-                System.out.println("bad Import Location" + i);
+                System.out.println("Always place an import statement at the top of the file");
             }
             if (!(ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
                 import_flag = true;
             }
         }
-
     }
 
     @Override
