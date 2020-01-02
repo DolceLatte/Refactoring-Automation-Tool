@@ -4,6 +4,8 @@ import gen.Python3BaseListener;
 import gen.Python3Parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
+import static listener.main.Python3codeGenListenerHelper.*;
+
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     boolean import_flag = false;
@@ -21,13 +23,17 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     }
 
     @Override
-    public void enterStmt(Python3Parser.StmtContext ctx) {
-
+    public void enterWhile_stmt(Python3Parser.While_stmtContext ctx) {
+        if (ishasElseStmt(ctx)) {
+            System.out.println("Clear else_stmt after loop!");
+        }
     }
 
     @Override
-    public void exitStmt(Python3Parser.StmtContext ctx) {
-        super.exitStmt(ctx);
+    public void enterFor_stmt(Python3Parser.For_stmtContext ctx) {
+        if (ishasElseStmt(ctx)) {
+            System.out.println("Clear else_stmt after loop!");
+        }
     }
 
     //모든 basic block의 시작노드
@@ -37,16 +43,6 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void exitSmall_stmt(Python3Parser.Small_stmtContext ctx) {
-
-    }
-
-    @Override
-    public void enterImport_stmt(Python3Parser.Import_stmtContext ctx) {
-
-    }
-
-    @Override
-    public void exitImport_stmt(Python3Parser.Import_stmtContext ctx) {
 
     }
 }

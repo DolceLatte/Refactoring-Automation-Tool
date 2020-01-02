@@ -1,8 +1,6 @@
-from hello import foo
-from hello import foo
-from hello import foo
+array = 0
 
-a = 10
-from hello import foo
-
-b = 11
+while array:
+    pass
+else:
+    pass
