@@ -602,6 +602,7 @@ public class Python3Parser extends Parser {
 
         public TerminalNode NEWLINE(int i) {
             return getToken(Python3Parser.NEWLINE, i);
+
         }
 
         public Eval_inputContext(ParserRuleContext parent, int invokingState) {

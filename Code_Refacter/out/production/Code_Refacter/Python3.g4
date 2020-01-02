@@ -370,8 +370,7 @@ NEWLINE
          }
        }
      }
-   }
- ;
+   };
 
 /// identifier   ::=  id_start id_continue*
 NAME

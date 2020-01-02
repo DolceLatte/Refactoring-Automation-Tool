@@ -5,11 +5,10 @@ import gen.Python3Parser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.*;
 
 
-public class Translator {
+public class Translator extends ParseTreeWalker {
     enum OPTIONS {
         PYTHON3CODEGEN, ERROR
     }
@@ -32,6 +31,7 @@ public class Translator {
         Python3Parser parser = new Python3Parser(tokens);
 //        AstPrinter astPrinter = new AstPrinter();
 //        astPrinter.print(parser.decl());
+
         ParseTreeWalker walker = new ParseTreeWalker();
         ParseTree tree = parser.decl();
         switch (getOption(args)) {

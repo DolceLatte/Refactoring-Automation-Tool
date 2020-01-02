@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 public class Python3BaseVisitor<T> extends AbstractParseTreeVisitor<T> implements Python3Visitor<T> {
+
 	/**
 	 * {@inheritDoc}
 	 *
