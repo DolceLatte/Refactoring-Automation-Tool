@@ -1,6 +1,8 @@
 array = 0
-
-while array:
+a = 10
+for a in array:
     pass
 else:
     pass
+from hello import foo
+b = 10
