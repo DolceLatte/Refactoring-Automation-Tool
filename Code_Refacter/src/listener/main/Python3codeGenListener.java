@@ -10,7 +10,6 @@ import static listener.main.Python3codeGenListenerHelper.*;
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     boolean import_flag = false;
-    int functionCount = 0;
     int lineNumber = 0;
 
     @Override
@@ -30,20 +29,21 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void enterWhile_stmt(Python3Parser.While_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.print("Clear else_stmt after loop!");
+            System.out.print("Clear else_stmt after While_loop!");
         }
     }
 
     @Override
     public void enterFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.print("Clear else_stmt after loop!");
+            System.out.print("Clear else_stmt after For_loop!");
         }
     }
 
     @Override
     public void visitTerminal(TerminalNode node) {
         if (node.getSymbol().getText().equals("\n")) lineNumber++;
+        System.out.println("type : "+node.getSymbol().getType() +" ,:"+ node.toString());
     }
 
     //모든 basic block의 시작노드
