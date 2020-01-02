@@ -3,24 +3,17 @@ package listener.main;
 import gen.Python3BaseListener;
 import gen.Python3Parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
-
-import java.util.HashMap;
-
 import static listener.main.Python3codeGenListenerHelper.*;
-
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     boolean import_flag = false;
-
-    HashMap<Integer, String> newtext = new HashMap<>();
-
     int lineNumber = 0;
 
     @Override
     public void enterFile_input(Python3Parser.File_inputContext ctx) {
         for (int i = 0; i < ctx.stmt().size(); i++) {
             if (import_flag && (ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
-                System.out.println(i+": Always place an import statement at the top of the file ");
+                System.out.println("Always place an import statement at the top of the file in Line :"+i);
             }
             if (!(ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
                 import_flag = true;
