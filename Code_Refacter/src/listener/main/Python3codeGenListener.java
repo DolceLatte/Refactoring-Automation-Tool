@@ -13,14 +13,18 @@ import static listener.main.Python3codeGenListenerHelper.*;
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     boolean import_flag = false;
-    int lineNumber = 0;
+    int lineNumber = 1;
 
     HashMap<Integer, String> hashMap = new HashMap<>();
 
     @Override
     public void exitDecl(Python3Parser.DeclContext ctx) {
         HashMap<String, CodePatternInfo> find = findDuplicatedCode(hashMap);
-
+        System.out.println();
+        for (CodePatternInfo c : find.values()) {
+            if (c.count > 1)
+                System.out.println("code line : "+c.linenumber.toString()+" have a duplicated code segment!");
+        }
     }
 
     @Override
@@ -74,7 +78,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void enterStmt(Python3Parser.StmtContext ctx) {
-        if (ctx.depth() == 4) System.out.print((lineNumber + 1) + ": ");
+        if (ctx.depth() == 4) System.out.print((lineNumber) + ": ");
     }
 
     @Override
