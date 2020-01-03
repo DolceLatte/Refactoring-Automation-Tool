@@ -4,42 +4,22 @@ import gen.Python3BaseListener;
 import gen.Python3Parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
 
 import static listener.main.Python3codeGenListenerHelper.*;
-
-class Stmt {
-    int _linenumber;
-    String _type;
-
-    public Stmt(int i, String s) {
-        this._linenumber = i;
-        this._type = s;
-    }
-}
 
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     boolean import_flag = false;
-
     int lineNumber = 0;
 
     HashMap<Integer, String> hashMap = new HashMap<>();
 
     @Override
     public void exitDecl(Python3Parser.DeclContext ctx) {
-        //해쉬맵을 리스트로 변환
-        System.out.println("중복된 코드");
-        PriorityQueue<Stmt> stmts = new PriorityQueue<>();
-        for (int i : hashMap.keySet()) {
-            stmts.add(new Stmt(i, hashMap.get(i)));
-        }
-        while (!stmts.isEmpty()){
-        }
+        HashMap<String, CodePatternInfo> find = findDuplicatedCode(hashMap);
 
     }
 
@@ -73,6 +53,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void visitTerminal(TerminalNode node) {
+        //중복되는 코드의 패턴을 해쉬맵에 라인번호와 함께 저장
         if (node.getSymbol().getText().equals("\n")) {
             lineNumber++;
         } else {
@@ -106,14 +87,44 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 //        System.out.println(ctx);
     }
 
-    public List<Integer> getKey(HashMap<Integer, String> m, String value) {
-        List<Integer> list = new LinkedList<>();
-        for (int o : m.keySet()) {
-            if (m.get(o).equals(value)) {
-                list.add(o);
+    public HashMap<String, CodePatternInfo> findDuplicatedCode(HashMap<Integer, String> code) {
+        //패턴별로 객체를 생성
+        HashMap<String, CodePatternInfo> find = new HashMap<>();
+        for (int key : code.keySet()) {
+            List<Integer> list = new ArrayList<>();
+            String value = code.get(key);
+            if (find.containsKey(value)) {
+                CodePatternInfo codePatternInfo = find.get(value);
+                codePatternInfo.count++;
+                codePatternInfo.linenumber.add(key);
+                find.put(value, codePatternInfo);
+            } else {
+                list.add(key);
+                find.put(value, new CodePatternInfo(list, 1));
             }
         }
-        return list;
+        return find;
     }
 
+}
+
+class CodePatternInfo {
+    List<Integer> linenumber;
+    int count;
+
+    public CodePatternInfo(List<Integer> linenumber, int count) {
+        this.linenumber = linenumber;
+        this.count = count;
+    }
+}
+
+
+class Stmt {
+    int _linenumber;
+    String _type;
+
+    public Stmt(int i, String s) {
+        this._linenumber = i;
+        this._type = s;
+    }
 }
