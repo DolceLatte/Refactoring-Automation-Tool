@@ -30,6 +30,9 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void enterFile_input(Python3Parser.File_inputContext ctx) {
+        if (checkDocString(ctx)){
+            System.out.println("Please enter a DocString in Module");
+        }
         System.out.println("---------------Comprehensive comment---------------");
         for (int i = 0; i < ctx.stmt().size(); i++) {
             if (import_flag && (ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
@@ -53,6 +56,13 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     public void enterFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
             System.out.print("Clear else_stmt after For_loop!");
+        }
+    }
+
+    @Override
+    public void enterClassdef(Python3Parser.ClassdefContext ctx) {
+        if (checkDocString(ctx)){
+            System.out.println("Please enter a DocString in Module");
         }
     }
 
@@ -111,6 +121,30 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
         return find;
     }
 
+    @Override
+    public void enterFuncdef(Python3Parser.FuncdefContext ctx) {
+        if (checkDocString(ctx)){
+            System.out.println("Please enter a DocString in Module");
+        }
+    }
+
+    public boolean checkDocString(Python3Parser.File_inputContext ctx) {
+        System.out.println(ctx.stmt(0).getRuleIndex());
+        System.out.println(ctx);
+        return true;
+    }
+
+    public boolean checkDocString(Python3Parser.FuncdefContext ctx) {
+        System.out.println(ctx.suite().stmt(0).getRuleIndex());
+        System.out.println(ctx);
+        return true;
+    }
+
+    public boolean checkDocString(Python3Parser.ClassdefContext ctx) {
+        System.out.println(ctx.suite().stmt(0));
+        System.out.println(ctx);
+        return true;
+    }
 }
 
 class CodePatternInfo {

@@ -15,6 +15,10 @@ class Calculator:
         self.result += num
         return self.result
 
+
+def test():
+    pass
+
 cal1 = Calculator()
 
 print(cal1.add(3))
