@@ -1,14 +1,14 @@
 """
-DocString
+DocString In Module
 """
 class Calculator:
-    '''
+    """
     DocString In Class
-    '''
+    """
     def __init__(self):
-        '''
+        """
         DocString In Function
-        '''
+        """
         self.result = 0
 
     def add(self, num):
@@ -19,6 +19,5 @@ class Calculator:
 def test():
     pass
 
-cal1 = Calculator()
 
 print(cal1.add(3))

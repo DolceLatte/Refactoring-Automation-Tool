@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static listener.main.Python3codeGenListenerHelper.*;
 
@@ -30,7 +32,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void enterFile_input(Python3Parser.File_inputContext ctx) {
-        if (checkDocString(ctx)){
+        if (!checkDocString(ctx)) {
             System.out.println("Please enter a DocString in Module");
         }
         System.out.println("---------------Comprehensive comment---------------");
@@ -61,8 +63,8 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void enterClassdef(Python3Parser.ClassdefContext ctx) {
-        if (checkDocString(ctx)){
-            System.out.println("Please enter a DocString in Module");
+        if (!checkDocString(ctx)) {
+            System.out.println("Please enter a DocString in Class");
         }
     }
 
@@ -123,27 +125,33 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void enterFuncdef(Python3Parser.FuncdefContext ctx) {
-        if (checkDocString(ctx)){
-            System.out.println("Please enter a DocString in Module");
+        if (!checkDocString(ctx)) {
+            System.out.println("Please enter a DocString in Function def");
         }
     }
 
     public boolean checkDocString(Python3Parser.File_inputContext ctx) {
-        System.out.println(ctx.stmt(0).getRuleIndex());
-        System.out.println(ctx);
-        return true;
+        String s = ctx.stmt(0).getText();
+        Pattern pattern = Pattern.compile("[\"\"\"\n][\"\"\"\n]");
+        Matcher matcher = pattern.matcher(s);
+        boolean a = matcher.find();
+        return a;
     }
 
     public boolean checkDocString(Python3Parser.FuncdefContext ctx) {
-        System.out.println(ctx.suite().stmt(0).getRuleIndex());
-        System.out.println(ctx);
-        return true;
+        String s = ctx.suite().stmt(0).getText();
+        Pattern pattern = Pattern.compile("[\"\"\"\n][\"\"\"\n]");
+        Matcher matcher = pattern.matcher(s);
+        boolean a = matcher.find();
+        return a;
     }
 
     public boolean checkDocString(Python3Parser.ClassdefContext ctx) {
-        System.out.println(ctx.suite().stmt(0));
-        System.out.println(ctx);
-        return true;
+        String s = ctx.suite().stmt(0).getText();
+        Pattern pattern = Pattern.compile("[\"\"\"\n][\"\"\"\n]");
+        Matcher matcher = pattern.matcher(s);
+        boolean a = matcher.find();
+        return a;
     }
 }
 
