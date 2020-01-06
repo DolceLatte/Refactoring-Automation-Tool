@@ -4,6 +4,7 @@ import gen.Python3BaseListener;
 import gen.Python3Parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
         System.out.println();
         for (CodePatternInfo c : find.values()) {
             if (c.count > 1)
-                System.out.println("code line : "+c.linenumber.toString()+" have a duplicated code segment!");
+                System.out.println("code line : " + c.linenumber.toString() + " have a duplicated code segment!");
         }
     }
 
@@ -121,7 +122,6 @@ class CodePatternInfo {
         this.count = count;
     }
 }
-
 
 class Stmt {
     int _linenumber;
