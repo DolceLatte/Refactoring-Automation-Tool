@@ -51,21 +51,21 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void exitWhile_stmt(Python3Parser.While_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.println("Clear else_stmt after While_loop! in Line : "+lineNumber);
+            System.out.println("Clear else_stmt after While_loop! in Line : " + lineNumber);
         }
     }
 
     @Override
     public void exitFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.println("Clear else_stmt after For_loop!: "+lineNumber);
+            System.out.println("Clear else_stmt after For_loop!: " + lineNumber);
         }
     }
 
     @Override
     public void exitClassdef(Python3Parser.ClassdefContext ctx) {
         if (!checkDocString(ctx)) {
-            System.out.println("Please enter a DocString in Class: "+lineNumber);
+            System.out.println("Please enter a DocString in Class: " + lineNumber);
         }
     }
 
@@ -120,9 +120,17 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     }
 
     @Override
+    public void enterReturn_stmt(Python3Parser.Return_stmtContext ctx) {
+        String s = ctx.stop.getText();
+        if (s.equals("None")) {
+            System.out.println("Raise an exception rather than returning None in Line : " + lineNumber);
+        }
+    }
+
+    @Override
     public void exitFuncdef(Python3Parser.FuncdefContext ctx) {
         if (!checkDocString(ctx)) {
-            System.out.println("Please enter a DocString in Function def in Line : "+lineNumber);
+            System.out.println("Please enter a DocString in Function def in Line : " + lineNumber);
         }
     }
 
@@ -142,7 +150,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     }
 
     public boolean checkmatcher(String s) {
-        s = s.replace(" ","");
+        s = s.replace(" ", "");
         String p1 = "^\"\"\"";
         String p2 = "\"\"\"$";
         Pattern pre = Pattern.compile(p1);
