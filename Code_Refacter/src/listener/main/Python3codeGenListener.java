@@ -34,7 +34,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void enterFile_input(Python3Parser.File_inputContext ctx) {
         if (!checkDocString(ctx)) {
-            System.out.println("Please enter a DocString in Module");
+            System.out.println("Please enter a DocString in Module in Line : 1");
         }
         System.out.println("---------------Comprehensive comment---------------");
         for (int i = 0; i < ctx.stmt().size(); i++) {
@@ -51,21 +51,21 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void exitWhile_stmt(Python3Parser.While_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.println("Clear else_stmt after While_loop!");
+            System.out.println("Clear else_stmt after While_loop! in Line : "+lineNumber);
         }
     }
 
     @Override
     public void exitFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.println("Clear else_stmt after For_loop!");
+            System.out.println("Clear else_stmt after For_loop!: "+lineNumber);
         }
     }
 
     @Override
     public void exitClassdef(Python3Parser.ClassdefContext ctx) {
         if (!checkDocString(ctx)) {
-            System.out.println("Please enter a DocString in Class");
+            System.out.println("Please enter a DocString in Class: "+lineNumber);
         }
     }
 
@@ -122,7 +122,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void exitFuncdef(Python3Parser.FuncdefContext ctx) {
         if (!checkDocString(ctx)) {
-            System.out.println("Please enter a DocString in Function def");
+            System.out.println("Please enter a DocString in Function def in Line : "+lineNumber);
         }
     }
 
