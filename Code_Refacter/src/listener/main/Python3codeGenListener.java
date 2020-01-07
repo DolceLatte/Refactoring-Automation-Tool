@@ -16,6 +16,7 @@ import static listener.main.Python3codeGenListenerHelper.*;
 public class Python3codeGenListener extends Python3BaseListener implements ParseTreeListener {
 
     boolean import_flag = false;
+
     int lineNumber = 1;
 
     HashMap<Integer, String> hashMap = new HashMap<>();
@@ -48,21 +49,21 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     }
 
     @Override
-    public void enterWhile_stmt(Python3Parser.While_stmtContext ctx) {
+    public void exitWhile_stmt(Python3Parser.While_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
             System.out.print("Clear else_stmt after While_loop!");
         }
     }
 
     @Override
-    public void enterFor_stmt(Python3Parser.For_stmtContext ctx) {
+    public void exitFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
             System.out.print("Clear else_stmt after For_loop!");
         }
     }
 
     @Override
-    public void enterClassdef(Python3Parser.ClassdefContext ctx) {
+    public void exitClassdef(Python3Parser.ClassdefContext ctx) {
         if (!checkDocString(ctx)) {
             System.out.println("Please enter a DocString in Class");
         }
@@ -71,16 +72,14 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void visitTerminal(TerminalNode node) {
         //중복되는 코드의 패턴을 해쉬맵에 라인번호와 함께 저장
-        if (node.getSymbol().getText().equals("\n")) {
-            lineNumber++;
+        int lineNumber = node.getSymbol().getLine();
+        int type = node.getSymbol().getType();
+        if (hashMap.containsKey(lineNumber)) {
+            hashMap.put(lineNumber, hashMap.get(lineNumber).concat(Integer.toString(type)));
         } else {
-            int type = node.getSymbol().getType();
-            if (hashMap.containsKey(lineNumber)) {
-                hashMap.put(lineNumber, hashMap.get(lineNumber).concat(Integer.toString(type)));
-            } else {
-                hashMap.put(lineNumber, Integer.toString(type));
-            }
+            hashMap.put(lineNumber, Integer.toString(type));
         }
+
     }
 
     //모든 basic block의 시작노드
@@ -124,7 +123,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     }
 
     @Override
-    public void enterFuncdef(Python3Parser.FuncdefContext ctx) {
+    public void exitFuncdef(Python3Parser.FuncdefContext ctx) {
         if (!checkDocString(ctx)) {
             System.out.println("Please enter a DocString in Function def");
         }
