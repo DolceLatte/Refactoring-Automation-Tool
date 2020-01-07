@@ -39,7 +39,7 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
         System.out.println("---------------Comprehensive comment---------------");
         for (int i = 0; i < ctx.stmt().size(); i++) {
             if (import_flag && (ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
-                System.out.println("Always place an import statement at the top of the file in Line :" + i);
+                System.out.println("Always place an import statement at the top of the file");
             }
             if (!(ctx.stmt(i).start.getText().equals("from") || ctx.stmt(i).start.getText().equals("import"))) {
                 import_flag = true;
@@ -51,14 +51,14 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void exitWhile_stmt(Python3Parser.While_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.print("Clear else_stmt after While_loop!");
+            System.out.println("Clear else_stmt after While_loop!");
         }
     }
 
     @Override
     public void exitFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.print("Clear else_stmt after For_loop!");
+            System.out.println("Clear else_stmt after For_loop!");
         }
     }
 
@@ -72,14 +72,13 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void visitTerminal(TerminalNode node) {
         //중복되는 코드의 패턴을 해쉬맵에 라인번호와 함께 저장
-        int lineNumber = node.getSymbol().getLine();
+        lineNumber = node.getSymbol().getLine();
         int type = node.getSymbol().getType();
         if (hashMap.containsKey(lineNumber)) {
             hashMap.put(lineNumber, hashMap.get(lineNumber).concat(Integer.toString(type)));
         } else {
             hashMap.put(lineNumber, Integer.toString(type));
         }
-
     }
 
     //모든 basic block의 시작노드
@@ -90,12 +89,10 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     @Override
     public void enterStmt(Python3Parser.StmtContext ctx) {
-        if (ctx.depth() == 4) System.out.print((lineNumber) + ": ");
     }
 
     @Override
     public void exitStmt(Python3Parser.StmtContext ctx) {
-        if (ctx.depth() == 4) System.out.println();
     }
 
     @Override
@@ -131,26 +128,28 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
 
     public boolean checkDocString(Python3Parser.File_inputContext ctx) {
         String s = ctx.stmt(0).getText();
-        Pattern pattern = Pattern.compile("[\"\"\"\n][\"\"\"\n]");
-        Matcher matcher = pattern.matcher(s);
-        boolean a = matcher.find();
-        return a;
+        return checkmatcher(s);
     }
 
     public boolean checkDocString(Python3Parser.FuncdefContext ctx) {
         String s = ctx.suite().stmt(0).getText();
-        Pattern pattern = Pattern.compile("[\"\"\"\n][\"\"\"\n]");
-        Matcher matcher = pattern.matcher(s);
-        boolean a = matcher.find();
-        return a;
+        return checkmatcher(s);
     }
 
     public boolean checkDocString(Python3Parser.ClassdefContext ctx) {
         String s = ctx.suite().stmt(0).getText();
-        Pattern pattern = Pattern.compile("[\"\"\"\n][\"\"\"\n]");
-        Matcher matcher = pattern.matcher(s);
-        boolean a = matcher.find();
-        return a;
+        return checkmatcher(s);
+    }
+
+    public boolean checkmatcher(String s) {
+        s = s.replace(" ","");
+        String p1 = "^\"\"\"";
+        String p2 = "\"\"\"$";
+        Pattern pre = Pattern.compile(p1);
+        Pattern post = Pattern.compile(p2);
+        Matcher prem = pre.matcher(s);
+        Matcher pom = post.matcher(s);
+        return prem.find() && pom.find();
     }
 }
 
