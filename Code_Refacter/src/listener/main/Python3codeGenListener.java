@@ -157,8 +157,15 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
         Pattern post = Pattern.compile(p2);
         Matcher prem = pre.matcher(s);
         Matcher pom = post.matcher(s);
-//        return prem.find() && pom.find();
-        return true;
+        return prem.find() && pom.find();
+//        return true;
+    }
+
+    @Override
+    public void enterTypedargslist(Python3Parser.TypedargslistContext ctx) {
+        List<Python3Parser.TfpdefContext> params = ctx.tfpdef();
+        if (params.size() >= 5)
+            System.out.println("Too Long Parameter List! Replace Parameter with Method Call in Line : "+lineNumber);
     }
 }
 
