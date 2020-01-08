@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Code_Refacter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Code_Refacter_jar</output-path>
+    <root id="archive" name="Code_Refacter.jar">
+      <element id="module-output" name="Code_Refacter" />
+      <element id="extracted-dir" path="$USER_HOME$/java/mysql-connector-java-5.1.48 2/antlr-4.7.2-complete.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

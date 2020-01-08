@@ -7,6 +7,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.*;
 
+import java.util.Arrays;
+
 
 public class Translator extends ParseTreeWalker {
     enum OPTIONS {
@@ -25,6 +27,7 @@ public class Translator extends ParseTreeWalker {
     }
 
     public static void main(String[] args) throws Exception {
+//        CharStream codeCharStream = CharStreams.fromFileName(Arrays.toString(args));
         CharStream codeCharStream = CharStreams.fromFileName("test.py");
         Python3Lexer lexer = new Python3Lexer(codeCharStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

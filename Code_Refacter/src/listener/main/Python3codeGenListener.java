@@ -58,14 +58,14 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
     @Override
     public void exitFor_stmt(Python3Parser.For_stmtContext ctx) {
         if (ishasElseStmt(ctx)) {
-            System.out.println("Clear else_stmt after For_loop!: " + lineNumber);
+            System.out.println("Clear else_stmt after For_loop! in Line : " + lineNumber);
         }
     }
 
     @Override
     public void exitClassdef(Python3Parser.ClassdefContext ctx) {
         if (!checkDocString(ctx)) {
-            System.out.println("Please enter a DocString in Class: " + lineNumber);
+            System.out.println("Please enter a DocString Class in Line : " + lineNumber);
         }
     }
 

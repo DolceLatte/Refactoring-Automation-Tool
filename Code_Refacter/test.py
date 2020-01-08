@@ -1,29 +1,16 @@
 """
-Doc
+sda
 """
 a = 10
 b = 10
+c = 10
 
 class hello():
-    """
-    Doc
-    """
     def __init__(self):
-        """
-        Doc
-        """
-        self._val = 0;
+        self._val = 0
 
-    def add(self, a, b):
-        self._val = a + b;
-        return a + b
-
-def mul(a,b,c,d,e,f):
-    """
-    Doc
-    """
-    pass
-
-import hello
+    def add(self, c, d):
+        self._val = c + d
+        return c + d
 
 h = hello()
