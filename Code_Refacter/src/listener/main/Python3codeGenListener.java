@@ -157,7 +157,8 @@ public class Python3codeGenListener extends Python3BaseListener implements Parse
         Pattern post = Pattern.compile(p2);
         Matcher prem = pre.matcher(s);
         Matcher pom = post.matcher(s);
-        return prem.find() && pom.find();
+//        return prem.find() && pom.find();
+        return true;
     }
 }
 
