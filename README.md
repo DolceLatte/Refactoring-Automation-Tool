@@ -8,7 +8,7 @@
 비슷한 오픈소스로는 Pylint가 있습니다.참고서적은 브렛 슬라킷의 이펙티브 파이썬이며 언어의 스타일에 맞는 리펙토링 가이드를 제공하려고 합니다. 
 코드 스멜은 책에 있는 가이드라인을 참고했으며, 이를 발견하면 프로그램은 Console를 통해 보여줍니다.
 
-![image width:100px height:10px](https://user-images.githubusercontent.com/45285053/72316865-d4d94280-36da-11ea-9c4b-aef50e7fd1a2.png)
+<img width:100px height:10px>![image](https://user-images.githubusercontent.com/45285053/72316865-d4d94280-36da-11ea-9c4b-aef50e7fd1a2.png)</img>
 
 -	환경 구성 단계
 파이썬 AST를 프로그램내에서 만들 수 있어야 합니다. 이를 위해서 파서생성기 Antlr를 intelliJ와 연동하고 GitHub에서 
