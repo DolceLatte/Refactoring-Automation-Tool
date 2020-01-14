@@ -12,7 +12,7 @@
 파이썬 G4파일을 clone받아 파서생성기를 구축합니다. 
 
 ## Antlr란?
-<img src="./img/4.png" width="320" height="200"><br/>
+<img src="./img/4.png" width="290" height="200"><br/>
 컴퓨터 기반 언어 인식에서 ANTLR(Another Tool For Language Recognition)는 구문 분석을 위해 LL(*)을 사용하는 파서 발생기.
 IDE와 연동을 통해서 프로그래밍언어에 대한 처리를 가능하게 함
 Github : https://github.com/antlr/antlr4/blob/master/doc/index.md
