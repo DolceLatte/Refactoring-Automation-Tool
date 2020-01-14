@@ -7,9 +7,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.*;
 
-import java.util.Arrays;
-
-
 public class Translator extends ParseTreeWalker {
     enum OPTIONS {
         PYTHON3CODEGEN, ERROR
