@@ -1,5 +1,5 @@
 """
-sda
+DocString
 """
 a = 10
 b = 10
@@ -14,3 +14,5 @@ class hello():
         return c + d
 
 h = hello()
+
+import A
