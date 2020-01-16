@@ -67,6 +67,7 @@ h = hello()
 위와 같이 test.py를 작성 합니다. 
 
 <img src="./img/test2.png">
+
 folder의 jar파일이 저장된 경로에 들어갑니다.
 
 <img src="./img/result.png">
