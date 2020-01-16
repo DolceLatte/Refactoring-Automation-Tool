@@ -45,7 +45,25 @@ ERROR가 발생한 지점의 라인번호를 출력합니다. 전역변수를 �
 함수 인자는 너무 많아지면 소스코드의 가독성과 사용성을 떨어뜨립니다. 
 
 ### How To Use </br>
-<img src="./img/test.png" width="400" height="500">
+```python
+"""
+DocString
+"""
+a = 10
+b = 10
+c = 10
+
+class hello():
+    def __init__(self):
+        self._val = 0
+
+    def add(self, c, d):
+        self._val = c + d
+        return c + d
+
+h = hello()
+
+```
 위와 같이 test.py를 작성 합니다. 
 
 <img src="./img/test2.png">
